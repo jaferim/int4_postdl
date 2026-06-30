@@ -184,6 +184,20 @@ const Intro = ({ setIsIntro }) => {
     }
   }, [part]);
 
+  useGSAP(() => {
+    const handleMousePos = (e) => {
+      const mouseY = e.clientY;
+      const delta = 0.2;
+
+      gsap.to(sideControlsRef.current, {
+        yPercent: mouseY * delta,
+        duration: 0.6,
+        ease: "power2.out",
+      });
+    };
+    window.addEventListener("mousemove", handleMousePos);
+  }, [diamond]);
+
   const diamondModel = useMemo(
     () => (
       <Diamond

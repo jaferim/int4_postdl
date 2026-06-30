@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import IntroButton from "./IntroButton";
 import Logo from "./jsx-assets/Logo";
 import ProgressDots from "./ProgressDots";
@@ -9,76 +9,117 @@ import gsap from "gsap";
 gsap.registerPlugin(SplitText);
 
 const IntroPt1 = ({ onClick, part, setIsIntro }) => {
-  const headerRef = useRef(null);
+  const headerRef1 = useRef(null);
+  const headerRef2 = useRef(null);
+
   const paragraphRef = useRef(null);
-  const headingRef = useRef(null);
 
   const logoMobileRef = useRef(null);
   const logoDesktopRef = useRef(null);
   const skipBtnRef = useRef(null);
   const controlsRef = useRef(null);
 
+  const firstFacet = useRef();
+  const secondFacet = useRef();
+
   useGSAP(() => {
-    SplitText.create(headerRef.current, {
+    const windowHeight = window.innerHeight;
+    const halfPlusQuarter = windowHeight / 2 + windowHeight / 4;
+
+    gsap.set([firstFacet.current, secondFacet.current], {
+      rotateX: 90,
+      transformOrigin: "bottom center",
+      yPercent: -100,
+    });
+
+    let isTextVisible = false;
+    let isSecondTextVisible = false;
+
+    const handleMousePos = (e) => {
+      if (e.clientY > windowHeight / 2 && !isTextVisible) {
+        isTextVisible = true;
+        gsap.to(firstFacet.current, {
+          rotateX: 0,
+          duration: 0.8,
+          ease: "bounce.out",
+        });
+      }
+      if (e.clientY < windowHeight / 2 && isTextVisible) {
+        isTextVisible = false;
+        gsap.to(firstFacet.current, {
+          rotateX: 90,
+          duration: 0.8,
+          ease: "power2.in",
+        });
+      }
+      if (e.clientY > halfPlusQuarter && !isSecondTextVisible) {
+        isSecondTextVisible = true;
+        gsap.to(secondFacet.current, {
+          rotateX: 0,
+          duration: 0.8,
+          ease: "bounce.out",
+        });
+      }
+      if (e.clientY < halfPlusQuarter && isSecondTextVisible) {
+        isSecondTextVisible = false;
+        gsap.to(secondFacet.current, {
+          rotateX: 90,
+          duration: 0.8,
+          ease: "power2.in",
+        });
+      }
+    };
+    const headerSplit = new SplitText(headerRef1.current, {
       type: "words, lines",
-      // mask: "lines",
-      autoSplit: true,
-      onSplit(self) {
-        gsap.from(self.lines, {
+    });
+    const headerSplit2 = new SplitText(headerRef2.current, {
+      type: "words, lines",
+    });
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        console.log("complete");
+        window.addEventListener("mousemove", handleMousePos);
+      },
+    });
+
+    tl.from(headerSplit.lines, {
+      xPercent: 100,
+      duration: 1.2,
+      opacity: 0,
+      ease: "power2.out",
+    })
+      .from(
+        headerSplit2.lines,
+        {
           xPercent: 100,
-          opacity: 0,
           duration: 1.2,
+          opacity: 0,
+          ease: "power2.out",
+        },
+        "-=1.1",
+      )
+      .from(
+        [
+          logoMobileRef.current,
+          logoDesktopRef.current,
+          skipBtnRef.current,
+          controlsRef.current,
+        ],
+        {
+          scale: 0,
+          opacity: 0,
+          duration: 0.8,
+          ease: "back.out(1.5)",
           stagger: 0.1,
-          ease: "power2.out",
-        });
-      },
-    });
+          delay: 0.2,
+        },
+        "-=0.4",
+      );
 
-    SplitText.create(paragraphRef.current, {
-      type: "words, lines",
-      autoSplit: true,
-      onSplit(self) {
-        gsap.from(self.lines, {
-          xPercent: -100,
-          opacity: 0,
-          duration: 1.2,
-          ease: "power2.out",
-          stagger: 0.05,
-        });
-      },
-    });
-
-    SplitText.create(headingRef.current, {
-      type: "words, lines",
-      autoSplit: true,
-      onSplit(self) {
-        gsap.from(self.lines, {
-          xPercent: -100,
-          duration: 1.2,
-          opacity: 0,
-          ease: "power2.out",
-          stagger: 0.05,
-          delay: 0.1,
-        });
-      },
-    });
-
-    gsap.from(
-      [
-        logoMobileRef.current,
-        logoDesktopRef.current,
-        skipBtnRef.current,
-        controlsRef.current,
-      ],
-      {
-        scale: 0,
-        opacity: 0,
-        duration: 0.8,
-        ease: "back.out(1.5)",
-        stagger: 0.1,
-        delay: 0.2,
-      },
-    );
+    return () => {
+      window.removeEventListener("mousemove", handleMousePos);
+    };
   }, []);
 
   return (
@@ -87,17 +128,19 @@ const IntroPt1 = ({ onClick, part, setIsIntro }) => {
         <div ref={logoMobileRef} className="md:hidden">
           <Logo />
         </div>
-        <h1
-          ref={headerRef}
-          className="mt-16 md:mt-0 text-center md:text-left md:max-w-[50%] lg:max-w-xl text-text-main bg-accentbg py-4 pl-4 rounded-full"
-        >
-          Antwerp has many
+        <h1 className="mt-16 md:mt-0 text-center md:text-left md:max-w-[50%] lg:max-w-xl text-text-main bg-accentbg py-4 pl-4 rounded-full">
+          <span ref={headerRef1}>Antwerp has many</span>
           <span className="flex flex-col md:w-fit items-center md:items-start pixel">
-            <span className="mb-1.5">facets.</span>
-            <span className="hidden md:block rotate-180 text-primary-2">
+            <span ref={headerRef2} className="mb-1.5">
+              facets.
+            </span>
+            <span ref={firstFacet} className="rotate-180 text-primary-2">
               facets
             </span>
-            <span className="hidden md:block [-webkit-text-stroke:1px_var(--color-text-main)] text-accentbg rotate-180">
+            <span
+              ref={secondFacet}
+              className="[-webkit-text-stroke:1px_var(--color-text-main)] text-accentbg rotate-180"
+            >
               facets
             </span>
           </span>
@@ -116,23 +159,15 @@ const IntroPt1 = ({ onClick, part, setIsIntro }) => {
           <Logo />
         </div>
 
-        <article className="max-w-120 lg:-mr-20 xl:mr-0 lg:max-w-170 bg-accentbg px-4 pt-4 grow-0 flex flex-col items-center md:items-start">
-          <p
-            ref={paragraphRef}
-            className="text-text-main p-large md:w-2/3 mb-4 md:mb-6 text-center md:text-start"
-          >
-            Let real, local creatives guide you through the ones that shine for
-            you.
-          </p>
-          <h4 ref={headingRef}>
-            <span className="[text-shadow:-0.8px_-0.8px_0_var(--color-text-main),0.8px_-0.8px_0_var(--color-text-main),-0.8px_0.8px_0_var(--color-text-main),0.8px_0.8px_0_var(--color-text-main)]">
-              Make your visit authentically yours at{" "}
-            </span>
-            <span className="[text-shadow:-0.8px_-0.8px_0_var(--color-primary-2),0.8px_-0.8px_0_var(--color-primary-2),-0.8px_0.8px_0_var(--color-primary-2),0.8px_0.8px_0_var(--color-primary-2)]">
-              Kar.at.
-            </span>
-          </h4>
-        </article>
+        {/* <article> */}
+        <p
+          ref={paragraphRef}
+          className="text-text-main text-xl w-[40%] font-body-regular text-center md:text-end p-4 bg-accentbg"
+        >
+          Let real, local creatives guide you through the ones that shine for
+          you. Make your visit authentically yours at{" "}
+          <span className="text-primary-2 font-body-bold">Kar.at.</span>
+        </p>
 
         <div
           ref={controlsRef}
