@@ -1,0 +1,534 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "AntwerpenPixel";
+  src: url("/assets/fonts/display/Antwerpen-Pixel.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "AntwerpenRegular";
+  src: url("/assets/fonts/display/Antwerpen-Regular.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SunLight";
+  src: url("/assets/fonts/body/light/SunAntwerpen_300.woff") format("woff");
+  font-weight: 300;
+  font-style: light;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SunRegular";
+  src: url("/assets/fonts/body/regular/SunAntwerpen_500.woff") format("woff");
+  font-weight: 300;
+  font-style: regular;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SunBold";
+  src: url("/assets/fonts/body/bold/SunAntwerpen_700.woff") format("woff");
+  font-weight: 300;
+  font-style: bold;
+  font-display: swap;
+}
+
+@theme {
+  --color-primary-1: var(--primary-1);
+  --color-primary-2: var(--primary-2);
+  --color-text-main: var(--text-main);
+  --color-text-secondary: var(--text-secondary);
+  --color-normalbg: oklch(0% 0 0);
+  --color-accentbg: var(--bg-accent);
+  --color-accentbg2: var(--bg-accent2);
+
+  --color-text-intro1: oklch(0.3041 0.0191 245.31);
+  --color-text-intro2: oklch(0.5953 0.0215 276.11);
+  --color-primary-intro: oklch(0.7646 0.2002 337.06);
+
+  --font-display-regular: "AntwerpenRegular", sans-serif;
+  --font-display-pixel: "AntwerpenPixel", sans-serif;
+  --font-body-light: "SunLight", sans-serif;
+  --font-body-regular: "SunRegular", sans-serif;
+  --font-body-bold: "SunBold", sans-serif;
+  --animate-rotate: fade-in-scale 20s infinite linear;
+  /* Faster, transform-based spin for the loading ring — `transform` is
+     composited so it keeps turning even when the main thread is busy mounting
+     the graph (a clear "still working" cue while the WebGL diamond can't tick). */
+  --animate-rotate-fast: rotate-spin 5s infinite linear;
+
+  --text-5xl: clamp(3rem, 2.7rem + 4vw, 8rem); /* 64px to 128px */
+  --text-4xl: clamp(2.8125rem, 1.6rem + 2.8125vw, 5.625rem); /* 45px to 90px */
+
+  --text-3xl: clamp(2rem, 1.6rem + 2vw, 4rem);
+  --text-2xl: clamp(1.4375rem, 1.1625rem + 1.375vw, 2.8125rem);
+
+  --text-xl: clamp(1.43751rem, 1rem + 0.4375vw, 2rem); /* 23px to 32px */
+  --text-lg: clamp(1rem, 0.8rem + 0.4375vw, 1.4375rem); /* 16px to 23px */
+
+  --text-base: 1rem; /* Locked at 16px */
+  --text-sm: 0.6875rem; /* Locked at 11px */
+
+  @keyframes fade-in-scale {
+    0% {
+      rotate: 0deg;
+    }
+    100% {
+      rotate: 360deg;
+    }
+  }
+
+  @keyframes rotate-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+@layer base {
+  :root,
+  [data-theme="blue-pink"] {
+    --primary-1: oklch(62% 0.134 253.9);
+    --primary-2: oklch(72.5% 0.203 335.5);
+    --text-main: oklch(77.5% 0.024 274);
+    --text-secondary: oklch(56.5% 0.024 274);
+    --bg-accent: oklch(14.8% 0.016 250);
+    --bg-accent2: oklch(0.1993 0.0305 247.73);
+  }
+  [data-theme="orange-lime"] {
+    --primary-1: oklch(65% 0.197 42.5);
+    --primary-2: oklch(91% 0.231 129);
+    --text-main: oklch(80% 0.018 52);
+    --text-secondary: oklch(57.5% 0.018 52);
+    --bg-accent: oklch(17.5% 0.027 45);
+    --bg-accent2: oklch(18.5% 0.029 45);
+  }
+  [data-theme="pink-blue"] {
+    --primary-1: oklch(72.5% 0.203 335.5);
+    --primary-2: oklch(62% 0.134 253.9);
+    --text-main: oklch(77.5% 0.024 336);
+    --text-secondary: oklch(57.5% 0.024 336);
+    --bg-accent: oklch(16% 0.017 335);
+    --bg-accent2: oklch(18% 0.022 335);
+  }
+  [data-theme="green-lime"] {
+    --primary-1: oklch(77% 0.185 156.5);
+    --primary-2: oklch(91% 0.231 129);
+    --text-main: oklch(82.5% 0.02 165);
+    --text-secondary: oklch(59.5% 0.02 165);
+    --bg-accent: oklch(16% 0.02 165);
+    --bg-accent2: oklch(18.5% 0.025 165);
+  }
+  /* Curator palettes (see web/src/lib/curators.js).
+     amber-rust = Noor B. / Curated Vintage — warm rust + amber, thrift-store glow. */
+  [data-theme="amber-rust"] {
+    --primary-1: oklch(80% 0.15 75);
+    --primary-2: oklch(63.295% 0.17071 43.209);
+    --text-main: oklch(85% 0.03 70);
+    --text-secondary: oklch(62% 0.03 70);
+    --bg-accent: oklch(16.5% 0.022 50);
+    --bg-accent2: oklch(20% 0.026 50);
+  }
+  /* mono-dark = Fleur Iven / Dark Avant-Garde — near-monochrome, cold steel accent. */
+  [data-theme="mono-dark"] {
+    --primary-1: oklch(75% 0.02 255);
+    --primary-2: oklch(70.583% 0.13817 287.563);
+    --text-main: oklch(88% 0.006 270);
+    --text-secondary: oklch(60% 0.01 270);
+    --bg-accent: oklch(12.5% 0.005 270);
+    --bg-accent2: oklch(15.5% 0.008 270);
+  }
+
+  hr {
+    border: 0.6px solid var(--color-text-main);
+    opacity: 0.3;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display-regular);
+  }
+  h1 {
+    font-size: var(--text-5xl);
+    line-height: 85%;
+  }
+  h2 {
+    font-size: var(--text-4xl);
+    line-height: 110%;
+  }
+  h3 {
+    font-size: var(--text-3xl);
+    line-height: 110%;
+  }
+  h4 {
+    font-size: var(--text-2xl);
+    line-height: 110%;
+  }
+  h5 {
+    font-size: var(--text-xl);
+    font-family: var(--font-body-bold);
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px; /* Vertical scrollbar width */
+    height: 8px; /* Horizontal scrollbar height */
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-accentbg2; /* Makes the track invisible */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    /* Style the little grabbing thumb using your Tailwind colors */
+    @apply bg-text-secondary/30 rounded-full hover:bg-text-secondary/60 transition-colors;
+  }
+
+  /* --- Firefox --- */
+  * {
+    scrollbar-width: thin; /* "auto" or "thin" */
+
+    scrollbar-color: var(--text-secondary) var(--bg-accent);
+  }
+}
+
+@utility base-circle {
+  @apply border border-text-main rounded-full bg-primary-1/30 w-64 h-64;
+}
+@utility shop-circle {
+  @apply rounded-full w-150 h-150 lg:w-196 lg:h-196;
+}
+
+@utility shop-circle-surface {
+  @apply absolute inset-0 rounded-full border border-text-secondary bg-accentbg2/20 pointer-events-none;
+  -webkit-mask-image: radial-gradient(
+    circle 10rem at calc(100% - 6rem) calc(100% - 6rem),
+    transparent 0 10rem,
+    black 10rem
+  );
+  mask-image: radial-gradient(
+    circle 10rem at calc(100% - 6rem) calc(100% - 6rem),
+    transparent 0 10rem,
+    black 10rem
+  );
+}
+
+@utility pixel {
+  font-family: var(--font-display-pixel);
+}
+
+@utility progress-dot {
+  @apply w-3 h-3 lg:w-4 lg:h-4 rotate-45 border-[1.5px] border-primary-2 transition-all ease-out duration-500;
+}
+
+@utility dot-active {
+  @apply bg-primary-2 rotate-90 transition-all ease-out duration-500;
+}
+
+@utility node-circle {
+  @apply rounded-full w-52 h-52 pb-7 bg-accentbg/1;
+}
+@utility flex-centered {
+  @apply flex items-center justify-center;
+}
+@utility flex-bottom {
+  @apply flex flex-col items-center justify-end;
+}
+
+@utility abs-centered {
+  @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+}
+@utility tag-wrapper {
+  @apply py-[0.6px] px-[0.6px] rounded-xs bg-normalbg
+         ring-[0.6px] ring-inset ring-text-secondary/70 group-hover:ring-0
+         group-hover:bg-linear-to-r group-hover:from-text-secondary/60 group-hover:to-text-secondary/10
+         transition-all duration-[400ms] ease-out;
+}
+
+@utility tag-display {
+  @apply flex-centered py-[0.1rem] px-1.5 rounded-xs bg-normalbg caption text-text-secondary/70 
+        group-hover:bg-text-secondary/20 group-hover:text-text-main 
+        transition-all duration-400 ease-out;
+}
+
+@utility size-box {
+  @apply text-text-main p-reg-h border border-text-main min-w-6 min-h-6 px-1 rounded-xs flex-centered;
+}
+
+@utility h5-subhead {
+  @apply font-body-regular leading-[135%];
+}
+
+@utility radial-mask {
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    black 50%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    ellipse at center,
+    var(--color-accentbg) 40%,
+    transparent 100%
+  );
+}
+
+@utility bg-noise {
+  /* 1. We encode the exact same SVG as a tiny data-URI */
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2.5' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+@utility caption {
+  font-size: var(--text-sm);
+  font-family: var(--font-body-light);
+  line-height: 110%;
+}
+
+@utility h-small {
+  font-family: var(--font-body-regular);
+  line-height: 110%;
+}
+
+@utility main-header {
+  color: var(--color-text-main);
+  line-height: 110%;
+}
+
+@utility p-large {
+  font-size: var(--text-lg);
+  font-family: var(--font-body-light);
+  line-height: 135%;
+}
+@utility p-large-h {
+  font-size: var(--text-lg);
+  font-family: var(--font-body-regular);
+  line-height: 110%;
+}
+@utility p-reg {
+  font-size: var(--text-base);
+  font-family: var(--font-body-light);
+  line-height: 145%;
+}
+@utility p-reg-h {
+  font-size: var(--text-base);
+  font-family: var(--font-body-light);
+  line-height: 110%;
+}
+
+@utility caption {
+  font-size: var(--text-sm);
+}
+
+@utility animate-tv-static {
+  animation: tv-static 0.2s steps(2) infinite;
+}
+
+@utility shop-card {
+  @apply flex flex-col lg:flex-row lg:items-center p-3 lg:p-5 lg:bg-primary-1/10 border-text-main/30 border-[0.6px] rounded-sm;
+}
+
+@utility secondary-cta {
+  @apply text-primary-2 underline p-reg uppercase;
+}
+
+@utility add-button {
+  @apply flex items-center w-fit h-12 lg:h-16 xl:h-16 border-[0.8px] border-primary-2 bg-primary-2/20 backdrop-blur-2xl rounded-xs;
+}
+
+@utility add-button-icon {
+  @apply h-full w-auto flex-centered aspect-square border-[0.8px] border-primary-2;
+}
+
+/* Small uppercase action pill used in the Vault rows (Reserve / Pin / Reserved).
+   Colour (border + text) is set per-use so blue/magenta variants share layout. */
+@utility reserve-pill {
+  @apply shrink-0 px-3 py-1.5 p-reg-h font-body-bold uppercase tracking-wide rounded-xs border-[0.8px] bg-transparent;
+}
+
+@utility profile-pics {
+  @apply w-10 lg:w-12  h-auto aspect-square rounded-full bg-accentbg border border-text-secondary;
+}
+
+@keyframes tv-static {
+  0%,
+  100% {
+    background-position: 0 0;
+  }
+  10% {
+    background-position: -5% -10%;
+  }
+  20% {
+    background-position: -15% 5%;
+  }
+  30% {
+    background-position: 7% -25%;
+  }
+  40% {
+    background-position: -5% 25%;
+  }
+  50% {
+    background-position: -15% 10%;
+  }
+  60% {
+    background-position: 15% 0%;
+  }
+  70% {
+    background-position: 0% 15%;
+  }
+  80% {
+    background-position: 3% 35%;
+  }
+  90% {
+    background-position: -10% 10%;
+  }
+}
+
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+.pin-spacer {
+  pointer-events: none !important;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.curator-ruler {
+  position: relative;
+  width: min(90vw, 720px);
+  height: 12px;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 12%,
+    #000 88%,
+    transparent
+  );
+}
+
+/* 1. The dim background ruler */
+.curator-ruler::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--color-text-secondary) 0 1px,
+    transparent 1px 14px
+  );
+  opacity: 0.15;
+}
+
+.curator-ruler::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--color-text-secondary) 0 1px,
+    transparent 1px 14px
+  );
+  opacity: 0.85;
+
+  mask-image: linear-gradient(to right, transparent, #000 50%, transparent);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 50%,
+    transparent
+  );
+
+  mask-size: 160px 100%;
+  -webkit-mask-size: 160px 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+
+  mask-position: calc(var(--progress, 0) * 100%) center;
+  -webkit-mask-position: calc(var(--progress, 0) * 100%) center;
+}
+.curator-rail {
+  display: flex;
+  gap: 0.5rem;
+  height: fit-content;
+  max-width: min(92vw, 760px);
+  overflow-x: auto;
+  padding-inline: 10%;
+  scrollbar-width: none;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 14%,
+    #000 86%,
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 14%,
+    #000 86%,
+    transparent
+  );
+}
+
+.curator-rail::-webkit-scrollbar {
+  display: none;
+}
+
+.curator-chip {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem;
+  border: 0.8px solid transparent;
+  border-radius: 0.25rem;
+  color: var(--color-text-secondary);
+  opacity: 0.55;
+  cursor: pointer;
+  transition:
+    opacity 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    transform 0.3s ease;
+}
+.curator-chip:hover {
+  opacity: 0.85;
+}
+
+.curator-chip-active {
+  color: var(--color-text-main);
+  opacity: 1;
+  border-color: var(--color-primary-1);
+  background-color: color-mix(
+    in oklab,
+    var(--color-primary-1) 12%,
+    transparent
+  );
+  transform: translateY(-2px);
+}

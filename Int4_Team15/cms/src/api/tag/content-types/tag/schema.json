@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tags",
+  "info": {
+    "singularName": "tag",
+    "pluralName": "tags",
+    "displayName": "Tag"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "kind": {
+      "type": "enumeration",
+      "enum": [
+        "era",
+        "aesthetic",
+        "theme",
+        "vibe",
+        "area"
+      ]
+    },
+    "facets": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::facet.facet",
+      "mappedBy": "tags"
+    }
+  }
+}

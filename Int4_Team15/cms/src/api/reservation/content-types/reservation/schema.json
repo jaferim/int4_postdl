@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reservations",
+  "info": {
+    "singularName": "reservation",
+    "pluralName": "reservations",
+    "displayName": "Reservation"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "reference": {
+      "type": "string"
+    },
+    "reservationStatus": {
+      "type": "enumeration",
+      "default": "requested",
+      "enum": [
+        "requested",
+        "confirmed",
+        "declined",
+        "expired",
+        "collected",
+        "cancelled"
+      ]
+    },
+    "visitStart": {
+      "type": "date"
+    },
+    "visitEnd": {
+      "type": "date"
+    },
+    "expiresAt": {
+      "type": "datetime"
+    },
+    "facet": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::facet.facet"
+    },
+    "shop": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::shop.shop"
+    }
+  }
+}

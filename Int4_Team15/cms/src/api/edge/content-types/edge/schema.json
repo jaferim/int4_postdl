@@ -1,0 +1,47 @@
+{
+  "kind": "collectionType",
+  "collectionName": "edges",
+  "info": {
+    "singularName": "edge",
+    "pluralName": "edges",
+    "displayName": "Edge"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "source": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::facet.facet"
+    },
+    "target": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::facet.facet"
+    },
+    "relationType": {
+      "type": "enumeration",
+      "enum": [
+        "similar",
+        "same_curator",
+        "same_shop",
+        "same_era",
+        "contains",
+        "styled_with"
+      ]
+    },
+    "weight": {
+      "type": "decimal"
+    },
+    "origin": {
+      "type": "enumeration",
+      "default": "ai_suggested",
+      "enum": [
+        "ai_suggested",
+        "curator_confirmed"
+      ]
+    }
+  }
+}

@@ -1,0 +1,48 @@
+const BaseArrow = ({ className, empty }) => {
+  return empty ? (
+    <svg
+      className={className}
+      width="12"
+      height="20"
+      viewBox="0 0 12 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <mask
+        id="path-1-outside-1_1236_289"
+        maskUnits="userSpaceOnUse"
+        x="0"
+        y="0"
+        width="12"
+        height="20"
+        fill="black"
+      >
+        <rect fill="white" width="12" height="20" />
+        <path d="M1 1H3.5V3.57129H6V6.14258H8.5V8.71387H11V11.2861H8.5V13.8574H6V16.4287H3.5V19H1V1Z" />
+      </mask>
+      <path
+        d="M1 1V0H0V1H1ZM3.5 1H4.5V0H3.5V1ZM3.5 3.57129H2.5V4.57129H3.5V3.57129ZM6 3.57129H7V2.57129H6V3.57129ZM6 6.14258H5V7.14258H6V6.14258ZM8.5 6.14258H9.5V5.14258H8.5V6.14258ZM8.5 8.71387H7.5V9.71387H8.5V8.71387ZM11 8.71387H12V7.71387H11V8.71387ZM11 11.2861V12.2861H12V11.2861H11ZM8.5 11.2861V10.2861H7.5V11.2861H8.5ZM8.5 13.8574V14.8574H9.5V13.8574H8.5ZM6 13.8574V12.8574H5V13.8574H6ZM6 16.4287V17.4287H7V16.4287H6ZM3.5 16.4287V15.4287H2.5V16.4287H3.5ZM3.5 19V20H4.5V19H3.5ZM1 19H0V20H1V19ZM1 1V2H3.5V1V0H1V1ZM3.5 1H2.5V3.57129H3.5H4.5V1H3.5ZM3.5 3.57129V4.57129H6V3.57129V2.57129H3.5V3.57129ZM6 3.57129H5V6.14258H6H7V3.57129H6ZM6 6.14258V7.14258H8.5V6.14258V5.14258H6V6.14258ZM8.5 6.14258H7.5V8.71387H8.5H9.5V6.14258H8.5ZM8.5 8.71387V9.71387H11V8.71387V7.71387H8.5V8.71387ZM11 8.71387H10V11.2861H11H12V8.71387H11ZM11 11.2861V10.2861H8.5V11.2861V12.2861H11V11.2861ZM8.5 11.2861H7.5V13.8574H8.5H9.5V11.2861H8.5ZM8.5 13.8574V12.8574H6V13.8574V14.8574H8.5V13.8574ZM6 13.8574H5V16.4287H6H7V13.8574H6ZM6 16.4287V15.4287H3.5V16.4287V17.4287H6V16.4287ZM3.5 16.4287H2.5V19H3.5H4.5V16.4287H3.5ZM3.5 19V18H1V19V20H3.5V19ZM1 19H2V1H1H0V19H1Z"
+        className="fill-text-secondary group-hover:fill-text-main group-transition-all duration-300"
+        mask="url(#path-1-outside-1_1236_289)"
+      />
+    </svg>
+  ) : (
+    <svg
+      className={className}
+      viewBox="0 0 10 18"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M9.5 7.71429L9.5 10.2857H9.53674e-07V7.71429H9.5ZM5 10.2857V12.8571H2.5V10.2857H5ZM7.5 12.8571V15.4286L5 15.4286V12.8571L7.5 12.8571ZM10 15.4286L10 18H7.5V15.4286H10ZM5 7.71429V5.14286H2.5V7.71429H5Z"
+        className="fill-text-secondary group-hover:fill-text-main group-transition-all duration-300"
+      />
+      <path
+        d="M7.5 12.8571V2.57143L5 2.57143V12.8571L7.5 12.8571ZM10 15.4286L10 0L7.5 1.12401e-07L7.5 15.4286H10Z"
+        className="fill-text-secondary group-hover:fill-text-main group-transition-all duration-300"
+      />
+    </svg>
+  );
+};
+
+export default BaseArrow;

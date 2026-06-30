@@ -1,0 +1,16 @@
+{
+  "name": "kar-at-scripts",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "One-time AI scripts for Kar.at: auto-tag facets and build similarity edges (local Ollama, against LOCAL Strapi).",
+  "scripts": {
+    "tag": "node tag-facets.js",
+    "embed": "node embed-and-link.js",
+    "worklist": "node dump-image-worklist.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.0",
+    "sharp": "^0.34.0"
+  }
+}

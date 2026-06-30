@@ -1,0 +1,83 @@
+{
+  "kind": "collectionType",
+  "collectionName": "facets",
+  "info": {
+    "singularName": "facet",
+    "pluralName": "facets",
+    "displayName": "Facet"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "subtitle": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "type": {
+      "type": "enumeration",
+      "required": true,
+      "enum": [
+        "item",
+        "moodboard",
+        "vibe",
+        "shop"
+      ]
+    },
+    "media": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "availability": {
+      "type": "enumeration",
+      "default": "available",
+      "enum": [
+        "available",
+        "on_hold",
+        "reserved"
+      ]
+    },
+    "embedding": {
+      "type": "json"
+    },
+    "data": {
+      "type": "json"
+    },
+    "curator": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::curator.curator",
+      "inversedBy": "facets"
+    },
+    "shop": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::facet.facet"
+    },
+    "tags": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::tag.tag",
+      "inversedBy": "facets"
+    },
+    "spaceType": {
+      "type": "string"
+    }
+  }
+}

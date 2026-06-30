@@ -1,0 +1,62 @@
+{
+  "kind": "collectionType",
+  "collectionName": "curators",
+  "info": {
+    "singularName": "curator",
+    "pluralName": "curators",
+    "displayName": "Curator"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "handle": {
+      "type": "string"
+    },
+    "avatar": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "bio": {
+      "type": "text"
+    },
+    "subculture": {
+      "type": "string"
+    },
+    "tone": {
+      "type": "string"
+    },
+    "quote": {
+      "type": "text"
+    },
+    "antwerpTips": {
+      "type": "text"
+    },
+    "avatarUrl": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "socials": {
+      "type": "json"
+    },
+    "facets": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::facet.facet",
+      "mappedBy": "curator"
+    }
+  }
+}
