@@ -1,10 +1,10 @@
 import { useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
-import DashEllipse from "./jsx-assets/DashEllipse";
+import DashEllipse from "./jsx-assets/DashEllipse.jsx";
 import VaultAdd from "./jsx-assets/VaultAdd.jsx";
-import { sizedImage } from "../lib/images";
-import { mapUrlFor } from "../lib/maps";
+import { sizedImage } from "../lib/images.js";
+import { mapUrlFor } from "../lib/maps.js";
 import { useVault } from "../lib/vault-context.js";
 
 // A single round curator avatar (image, or an empty placeholder when we have no photo for them). The black ring is what cuts overlapping avatars apart in the "recommended by" stack against the dark circle.

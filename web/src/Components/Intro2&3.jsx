@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Logo from "./jsx-assets/Logo";
-import ProgressDots from "./ProgressDots";
-import IntroButton from "./IntroButton";
-import SelectionList from "./SelectionList";
-import CreativeSelect from "./CreativeSelect";
+import Logo from "./jsx-assets/Logo.jsx";
+import ProgressDots from "./ProgressDots.jsx";
+import IntroButton from "./IntroButton.jsx";
+import SelectionList from "./SelectionList.jsx";
+import CreativeSelect from "./CreativeSelect.jsx";
 import { CURATORS, curatorsForStyles } from "../lib/curators.js";
 import { useCurator } from "../lib/curator-context.js";
 
