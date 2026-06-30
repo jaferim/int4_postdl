@@ -24,7 +24,7 @@ const IntroPt1 = ({ onClick, part, setIsIntro }) => {
 
   useGSAP(() => {
     const windowHeight = window.innerHeight;
-    const halfPlusQuarter = windowHeight / 2 + windowHeight / 4;
+    const halfMinusQuarter = windowHeight / 2 - windowHeight / 4;
 
     gsap.set([firstFacet.current, secondFacet.current], {
       rotateX: 90,
@@ -36,7 +36,7 @@ const IntroPt1 = ({ onClick, part, setIsIntro }) => {
     let isSecondTextVisible = false;
 
     const handleMousePos = (e) => {
-      if (e.clientY > windowHeight / 2 && !isTextVisible) {
+      if (e.clientY > halfMinusQuarter && !isTextVisible) {
         isTextVisible = true;
         gsap.to(firstFacet.current, {
           rotateX: 0,
@@ -44,7 +44,7 @@ const IntroPt1 = ({ onClick, part, setIsIntro }) => {
           ease: "bounce.out",
         });
       }
-      if (e.clientY < windowHeight / 2 && isTextVisible) {
+      if (e.clientY < halfMinusQuarter && isTextVisible) {
         isTextVisible = false;
         gsap.to(firstFacet.current, {
           rotateX: 90,
@@ -52,7 +52,7 @@ const IntroPt1 = ({ onClick, part, setIsIntro }) => {
           ease: "power2.in",
         });
       }
-      if (e.clientY > halfPlusQuarter && !isSecondTextVisible) {
+      if (e.clientY > windowHeight / 2 && !isSecondTextVisible) {
         isSecondTextVisible = true;
         gsap.to(secondFacet.current, {
           rotateX: 0,
@@ -60,7 +60,7 @@ const IntroPt1 = ({ onClick, part, setIsIntro }) => {
           ease: "bounce.out",
         });
       }
-      if (e.clientY < halfPlusQuarter && isSecondTextVisible) {
+      if (e.clientY < windowHeight / 2 && isSecondTextVisible) {
         isSecondTextVisible = false;
         gsap.to(secondFacet.current, {
           rotateX: 90,

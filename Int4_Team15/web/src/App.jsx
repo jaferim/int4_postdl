@@ -194,7 +194,7 @@ function App() {
                   </div>
 
                   {/* CENTER: The Search Bar */}
-                  <div className="flex justify-center w-[50vw] lg:w-[min(38vw,30rem)] shrink-0">
+                  <div className="flex justify-center max-w-[40vw] xs:mwx-w-auto lg:w-[min(38vw,30rem)] shrink-0">
                     <SearchBar
                       onClick={() => setSearchOpen(true)}
                       isOpen={searchOpen}
