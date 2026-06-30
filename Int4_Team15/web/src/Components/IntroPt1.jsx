@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import IntroButton from "./IntroButton";
 import Logo from "./jsx-assets/Logo";
 import ProgressDots from "./ProgressDots";
